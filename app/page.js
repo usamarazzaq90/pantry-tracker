@@ -1,5 +1,5 @@
 "use client";
-
+import "./globals.css";
 import { useState, useEffect } from "react";
 import {
   Box,
@@ -8,6 +8,7 @@ import {
   Button,
   Modal,
   TextField,
+  boxShadow,
 } from "@mui/material";
 import { firestore } from "@/firebase";
 import {
@@ -19,6 +20,7 @@ import {
   deleteDoc,
   getDoc,
 } from "firebase/firestore";
+import Link from "next/link";
 
 const style = {
   position: "absolute",
@@ -86,13 +88,36 @@ export default function Home() {
   return (
     <Box
       width="100vw"
-      height="100vh"
+      minHeight="100vh"
       display={"flex"}
-      justifyContent={"center"}
       flexDirection={"column"}
       alignItems={"center"}
       gap={2}
+      bgcolor="#4d4d4d"
+      paddingBottom="2rem"
     >
+      <Box
+        width="100vw"
+        height="15vh"
+        display={"flex"}
+        justifyContent={"space-around"}
+        alignItems={"center"}
+        bgcolor="#0d0d0d"
+        color="white"
+        padding="0 8vw"
+      >
+        <h1>Pantry Tracker</h1>
+        <Link
+          href="https://usamarazzaq.me"
+          target="_blank"
+          style={{
+            color: "white",
+            textDecoration: "none",
+          }}
+        >
+          <h2>Usama Razzaq</h2>
+        </Link>
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}
@@ -125,47 +150,99 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <Button variant="contained" onClick={handleOpen}>
+      <button
+        className="button"
+        style={{
+          backgroundColor: "#0d0d0d",
+          color: "#fff",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "5px",
+          fontSize: "1rem",
+        }}
+        onClick={handleOpen}
+      >
         Add New Item
-      </Button>
-      <Box border={"1px solid #333"}>
+      </button>
+      <Box border={"3px solid #0d0d0d"}>
         <Box
           width="800px"
-          height="100px"
-          bgcolor={"#ADD8E6"}
+          height="80px"
+          bgcolor={"#0d0d0d"}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
+          marginBottom="20px"
         >
-          <Typography variant={"h2"} color={"#333"} textAlign={"center"}>
+          <h2
+            style={{
+              color: "#fff",
+              textAlign: "center",
+              fontWeight: "700",
+            }}
+          >
             Inventory Items
-          </Typography>
+          </h2>
         </Box>
         <Stack width="800px" height="300px" spacing={2} overflow={"auto"}>
           {inventory.map(({ name, quantity }) => (
             <Box
               key={name}
               width="100%"
-              minHeight="150px"
+              minHeight="80px"
               display={"flex"}
               justifyContent={"space-between"}
               alignItems={"center"}
-              bgcolor={"#f0f0f0"}
+              bgcolor={"#b3b3b3"}
               paddingX={5}
             >
-              <Typography variant={"h3"} color={"#333"} textAlign={"center"}>
+              <h3
+                style={{
+                  color: "#0d0d0d",
+                  textAlign: "center",
+                  fontSize: "1.5rem",
+                  fontWeight: "500",
+                }}
+              >
                 {name.charAt(0).toUpperCase() + name.slice(1)}
-              </Typography>
-              <Typography variant={"h3"} color={"#333"} textAlign={"center"}>
+              </h3>
+              <h3
+                style={{
+                  color: "#0d0d0d",
+                  textAlign: "center",
+                  fontSize: "1.5rem",
+                  fontWeight: "500",
+                }}
+              >
                 Quantity: {quantity}
-              </Typography>
+              </h3>
               <Stack direction="row" spacing={2}>
-                <Button variant="contained" onClick={() => addItem(name)}>
+                <button
+                  className="button"
+                  style={{
+                    backgroundColor: "#0d0d0d",
+                    color: "#fff",
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "5px",
+                  }}
+                  onClick={() => addItem(name)}
+                >
                   Add
-                </Button>
-                <Button variant="contained" onClick={() => removeItem(name)}>
+                </button>
+                <button
+                  className="button"
+                  style={{
+                    backgroundColor: "#0d0d0d",
+                    color: "#fff",
+                    padding: "10px 20px",
+                    border: "none",
+                    borderRadius: "5px",
+                  }}
+                  onClick={() => removeItem(name)}
+                >
                   Remove
-                </Button>
+                </button>
               </Stack>
             </Box>
           ))}
