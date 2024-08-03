@@ -27,7 +27,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "300px",
   bgcolor: "white",
   border: "2px solid #000",
   boxShadow: 24,
@@ -35,6 +35,7 @@ const style = {
   display: "flex",
   flexDirection: "column",
   gap: 3,
+  border: "2px solid #0d0d0d",
 };
 
 export default function Home() {
@@ -97,25 +98,45 @@ export default function Home() {
       paddingBottom="2rem"
     >
       <Box
-        width="100vw"
+        width="100%"
         height="15vh"
         display={"flex"}
-        justifyContent={"space-around"}
+        justifyContent={"space-between"}
         alignItems={"center"}
         bgcolor="#0d0d0d"
         color="white"
-        padding="0 8vw"
+        sx={{
+          padding: { xs: "0 2.7%", sm: "0 6%", md: "0 15%", lg: "0 19%" },
+        }}
       >
-        <h1>Pantry Tracker</h1>
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: { xs: "1rem", sm: "1.5rem", md: "1.8rem", lg: "2rem" },
+          }}
+        >
+          Pantry Tracker
+        </Typography>
         <Link
           href="https://usamarazzaq.me"
           target="_blank"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
+          style={{ textDecoration: "none" }}
         >
-          <h2>Usama Razzaq</h2>
+          <Typography
+            variant="h3"
+            sx={{
+              color: "white",
+              textDecoration: "none",
+              fontSize: {
+                xs: "0.8rem",
+                sm: "1.3rem",
+                md: "1.6rem",
+                lg: "1.6rem",
+              },
+            }}
+          >
+            Usama Razzaq
+          </Typography>
         </Link>
       </Box>
       <Modal
@@ -130,6 +151,7 @@ export default function Home() {
           </Typography>
           <Stack width="100%" direction={"row"} spacing={2}>
             <TextField
+              border={"2px solid #0d0d0d"}
               id="outlined-basic"
               label="Item"
               variant="outlined"
@@ -138,7 +160,21 @@ export default function Home() {
               onChange={(e) => setItemName(e.target.value)}
             />
             <Button
-              variant="outlined"
+              style={{
+                backgroundColor: "#0d0d0d",
+                color: "#fff",
+                padding: "10px 20px",
+                border: "none",
+                borderRadius: "5px",
+              }}
+              sx={{
+                fontSize: {
+                  xs: ".5rem",
+                  sm: ".7rem",
+                  md: ".7rem",
+                  lg: ".8rem",
+                },
+              }}
               onClick={() => {
                 addItem(itemName);
                 setItemName("");
@@ -150,87 +186,135 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <button
-        className="button"
+      <Button
         style={{
           backgroundColor: "#0d0d0d",
           color: "#fff",
           padding: "10px 20px",
           border: "none",
           borderRadius: "5px",
-          fontSize: "1rem",
+        }}
+        sx={{
+          fontSize: {
+            xs: ".5rem",
+            sm: ".7rem",
+            md: ".7rem",
+            lg: ".8rem",
+          },
         }}
         onClick={handleOpen}
       >
         Add New Item
-      </button>
-      <Box border={"3px solid #0d0d0d"}>
+      </Button>
+      <Box
+        border={"3px solid #0d0d0d"}
+        sx={{
+          width: { xs: "95%", sm: "90%", md: "75%", lg: "65%" },
+        }}
+      >
         <Box
-          width="800px"
           height="80px"
+          width={"100%"}
           bgcolor={"#0d0d0d"}
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
           marginBottom="20px"
         >
-          <h2
+          <Typography
+            variant="h3"
             style={{
               color: "#fff",
               textAlign: "center",
-              fontWeight: "700",
+              // fontWeight: "700",
+            }}
+            sx={{
+              fontSize: {
+                xs: "1rem",
+                sm: "1.3rem",
+                md: "1.6rem",
+                lg: "2rem",
+              },
             }}
           >
             Inventory Items
-          </h2>
+          </Typography>
         </Box>
-        <Stack width="800px" height="300px" spacing={2} overflow={"auto"}>
+        <Stack width="100%" height="300px" spacing={2} overflow={"auto"}>
           {inventory.map(({ name, quantity }) => (
             <Box
               key={name}
               width="100%"
-              minHeight="80px"
+              minHeight="150px"
               display={"flex"}
+              sx={{
+                flexDirection: { xs: "column", sm: "row", md: "row" },
+                gap: { xs: "8px", sm: "8px" },
+              }}
               justifyContent={"space-between"}
               alignItems={"center"}
               bgcolor={"#b3b3b3"}
               paddingX={5}
+              paddingY={2}
             >
-              <h3
+              <Typography
+                variant="h3"
                 style={{
                   color: "#0d0d0d",
                   textAlign: "center",
-                  fontSize: "1.5rem",
                   fontWeight: "500",
+                }}
+                sx={{
+                  fontSize: {
+                    xs: "1.3rem",
+                    sm: "1.5rem",
+                    md: "1.6rem",
+                    lg: "2rem",
+                  },
                 }}
               >
                 {name.charAt(0).toUpperCase() + name.slice(1)}
-              </h3>
-              <h3
+              </Typography>
+              <Typography
+                variant="h3"
                 style={{
                   color: "#0d0d0d",
                   textAlign: "center",
-                  fontSize: "1.5rem",
                   fontWeight: "500",
+                }}
+                sx={{
+                  fontSize: {
+                    xs: "1.3rem",
+                    sm: "1.5rem",
+                    md: "1.6rem",
+                    lg: "2rem",
+                  },
                 }}
               >
                 Quantity: {quantity}
-              </h3>
+              </Typography>
               <Stack direction="row" spacing={2}>
-                <button
-                  className="button"
+                <Button
                   style={{
                     backgroundColor: "#0d0d0d",
                     color: "#fff",
                     padding: "10px 20px",
                     border: "none",
                     borderRadius: "5px",
+                  }}
+                  sx={{
+                    fontSize: {
+                      xs: ".5rem",
+                      sm: ".7rem",
+                      md: ".7rem",
+                      lg: ".8rem",
+                    },
                   }}
                   onClick={() => addItem(name)}
                 >
                   Add
-                </button>
-                <button
+                </Button>
+                <Button
                   className="button"
                   style={{
                     backgroundColor: "#0d0d0d",
@@ -239,10 +323,18 @@ export default function Home() {
                     border: "none",
                     borderRadius: "5px",
                   }}
+                  sx={{
+                    fontSize: {
+                      xs: ".5rem",
+                      sm: ".7rem",
+                      md: ".7rem",
+                      lg: ".8rem",
+                    },
+                  }}
                   onClick={() => removeItem(name)}
                 >
                   Remove
-                </button>
+                </Button>
               </Stack>
             </Box>
           ))}
