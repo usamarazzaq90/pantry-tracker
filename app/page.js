@@ -258,7 +258,7 @@ export default function Home() {
                 md: ".7rem",
                 lg: ".8rem",
               },
-              width: { xs: "50%", sm: "28%", md: "20%", lg: "15%" },
+              width: { xs: "50%", sm: "28%", md: "20%", lg: "25%" },
               padding: { md: "10px 10px" },
             }}
             onClick={handleOpen}
@@ -344,7 +344,7 @@ export default function Home() {
                   },
                 }}
               >
-                Quantity: {quantity}
+                {quantity}
               </Typography>
               <Stack direction="row" spacing={2}>
                 <Button
