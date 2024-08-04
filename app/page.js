@@ -91,14 +91,10 @@ export default function Home() {
     if (searchQuery.trim() === "") {
       setFilteredPantry(inventory);
     } else {
-      const filteredItems = inventory.filter((item) => {
-        item.name.toLowerCase().includes(searchQuery.toLowerCase());
-        console.log(item.name.toLowerCase());
-      });
+      const filteredItems = inventory.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
       setFilteredPantry(filteredItems);
-      console.log(filteredItems);
-      // console.log(item.name.toLowerCase());
-      console.log(searchQuery.toLowerCase());
     }
   };
 
@@ -128,14 +124,20 @@ export default function Home() {
           padding: { xs: "0 2.7%", sm: "0 6%", md: "0 15%", lg: "0 19%" },
         }}
       >
-        <Typography
-          variant="h1"
-          sx={{
-            fontSize: { xs: "1rem", sm: "1.5rem", md: "1.8rem", lg: "2rem" },
-          }}
-        >
-          Pantry Tracker
-        </Typography>
+        <Link href="/" passHref style={{ textDecoration: "none" }}>
+          <Typography
+            variant="h1"
+            sx={{
+              color: "white",
+              textDecoration: "none",
+              fontSize: { xs: "1rem", sm: "1.5rem", md: "1.8rem", lg: "2rem" },
+            }}
+            onClick={() => window.location.reload()}
+          >
+            Pantry Tracker
+          </Typography>
+        </Link>
+
         <Link
           href="https://usamarazzaq.me"
           target="_blank"
