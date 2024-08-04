@@ -1,6 +1,7 @@
 "use client";
 import "./globals.css";
 import { useState, useEffect } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
   Stack,
@@ -41,6 +42,8 @@ const style = {
 export default function Home() {
   const [inventory, setInventory] = useState([]);
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredPantry, setFilteredPantry] = useState([]);
   const [itemName, setItemName] = useState("");
 
   const updateInventory = async () => {
@@ -51,6 +54,7 @@ export default function Home() {
       inventoryList.push({ name: doc.id, ...doc.data() });
     });
     setInventory(inventoryList);
+    setFilteredPantry(inventoryList);
   };
 
   useEffect(() => {
@@ -81,6 +85,21 @@ export default function Home() {
       }
     }
     await updateInventory();
+  };
+
+  const handleSearch = () => {
+    if (searchQuery.trim() === "") {
+      setFilteredPantry(inventory);
+    } else {
+      const filteredItems = inventory.filter((item) => {
+        item.name.toLowerCase().includes(searchQuery.toLowerCase());
+        console.log(item.name.toLowerCase());
+      });
+      setFilteredPantry(filteredItems);
+      console.log(filteredItems);
+      // console.log(item.name.toLowerCase());
+      console.log(searchQuery.toLowerCase());
+    }
   };
 
   const handleOpen = () => setOpen(true);
@@ -186,32 +205,67 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <Button
-        style={{
-          backgroundColor: "#0d0d0d",
-          color: "#fff",
-          padding: "10px 20px",
-          border: "none",
-          borderRadius: "5px",
-        }}
-        sx={{
-          fontSize: {
-            xs: ".5rem",
-            sm: ".7rem",
-            md: ".7rem",
-            lg: ".8rem",
-          },
-        }}
-        onClick={handleOpen}
-      >
-        Add New Item
-      </Button>
+
       <Box
         border={"3px solid #0d0d0d"}
         sx={{
           width: { xs: "95%", sm: "90%", md: "75%", lg: "65%" },
         }}
       >
+        <Stack
+          direction={"row"}
+          width={"100%"}
+          spacing={2}
+          padding="10px"
+          bgcolor={"white"}
+        >
+          <TextField
+            border={"2px solid #0d0d0d"}
+            id="outlined-basic"
+            label="Search"
+            variant="outlined"
+            fullWidth
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Button
+            onClick={handleSearch}
+            style={{
+              backgroundColor: "#0d0d0d",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+            }}
+            sx={{
+              width: { xs: "20px", sm: "5%", md: "10%", lg: "15%" },
+              padding: { md: "10px 20px" },
+            }}
+          >
+            <SearchIcon />
+          </Button>
+
+          <Button
+            style={{
+              backgroundColor: "#0d0d0d",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+            }}
+            sx={{
+              fontSize: {
+                xs: ".6rem",
+                sm: ".7rem",
+                md: ".7rem",
+                lg: ".8rem",
+              },
+              width: { xs: "50%", sm: "28%", md: "20%", lg: "15%" },
+              padding: { md: "10px 10px" },
+            }}
+            onClick={handleOpen}
+          >
+            Add New Item
+          </Button>
+        </Stack>
         <Box
           height="80px"
           width={"100%"}
@@ -226,7 +280,6 @@ export default function Home() {
             style={{
               color: "#fff",
               textAlign: "center",
-              // fontWeight: "700",
             }}
             sx={{
               fontSize: {
@@ -241,7 +294,7 @@ export default function Home() {
           </Typography>
         </Box>
         <Stack width="100%" height="300px" spacing={2} overflow={"auto"}>
-          {inventory.map(({ name, quantity }) => (
+          {filteredPantry.map(({ name, quantity }) => (
             <Box
               key={name}
               width="100%"
@@ -253,7 +306,7 @@ export default function Home() {
               }}
               justifyContent={"space-between"}
               alignItems={"center"}
-              bgcolor={"#b3b3b3"}
+              bgcolor={"white"}
               paddingX={5}
               paddingY={2}
             >
